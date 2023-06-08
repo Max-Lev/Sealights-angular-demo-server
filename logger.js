@@ -11,7 +11,7 @@ const logger = () => {
     const info = (...args) => {
         formatAndLog("[demo server] ", '\x1b[36m', ...args);
     };
-    
+
     const log = (...args) => {
         formatAndLog("", '\x1b[36m', ...args);
     };
