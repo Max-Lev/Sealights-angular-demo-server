@@ -11,31 +11,34 @@ const app = express()
 const port = 3000;
 const jsonMiddleware = express.json();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://sea-lights-xv8y-h3l5jmod3-max-lev.vercel.app/',
+  optionsSuccessStatus: 200
+}));
 swaggerInit(app);
 
 app.get('/', (req, res) => {
-    res.setHeader('Content-Type', 'text/html');
-    res.status(200).send(`<h1>Demo Server - Good Luck :)</h1>`);
+  res.setHeader('Content-Type', 'text/html');
+  res.status(200).send(`<h1>Demo Server - Good Luck :)</h1>`);
 });
 
 app.get('/api/persons', (req, res) => {
-    try {
-        const data = getPersons();
-        res.status(200).json(data);
+  try {
+    const data = getPersons();
+    res.status(200).json(data);
 
-      } catch (error) {
-        console.error('An error occurred:', error);
-        res.status(500).json({ error: `failed to get persons with error: ${error.message} `});
-      }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    res.status(500).json({ error: `failed to get persons with error: ${error.message} ` });
+  }
 });
 
 app.post('/api/person', jsonMiddleware, (req, res) => {
   try {
     addPerson(req.body);
-    res.status(201).json({ message: "person was created successfuly "});
-  } catch(error) {
-    res.status(500).json({ error: `failed to create a person with error: ${error.message}`})
+    res.status(201).json({ message: "person was created successfuly " });
+  } catch (error) {
+    res.status(500).json({ error: `failed to create a person with error: ${error.message}` })
   }
 });
 
@@ -51,29 +54,29 @@ app.get('/api/cities/:countryId', (req, res) => {
 app.post('/api/city', jsonMiddleware, (req, res) => {
   try {
     addCity(req.body);
-    res.status(201).json({ message: "city was added successfuly "});
+    res.status(201).json({ message: "city was added successfuly " });
   } catch (error) {
-    res.status(500).json({ error: `failed to add a city with error: ${error.message}`});
+    res.status(500).json({ error: `failed to add a city with error: ${error.message}` });
   }
 });
-  
+
 app.get('/api/countries', (req, res) => {
   try {
-      const data = getCountries();
-      res.status(200).json(data);
+    const data = getCountries();
+    res.status(200).json(data);
 
-    } catch (error) {
-      res.status(500).json({ error: `failed to get countries with error: ${error.message} `});
-    }
+  } catch (error) {
+    res.status(500).json({ error: `failed to get countries with error: ${error.message} ` });
+  }
 });
 
 app.listen(port, () => {
-    const title = figlet.textSync("Demo Server", {
-      font: "Standard",
-      horizontalLayout: "default",
-      verticalLayout: "default",
-      whitespaceBreak: false
-    });
-    logger.log(title, "\n\n");
-    logger.info(`Listening to port ${port} \n`);
+  const title = figlet.textSync("Demo Server", {
+    font: "Standard",
+    horizontalLayout: "default",
+    verticalLayout: "default",
+    whitespaceBreak: false
+  });
+  logger.log(title, "\n\n");
+  logger.info(`Listening to port ${port} \n`);
 });
