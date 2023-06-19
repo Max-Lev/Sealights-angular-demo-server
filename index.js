@@ -80,3 +80,7 @@ app.listen(port, () => {
   logger.log(title, "\n\n");
   logger.info(`Listening to port ${port} \n`);
 });
+
+// Export the Express API
+// module.exports = app;
+export default app;
