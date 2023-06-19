@@ -11,7 +11,9 @@ const app = express()
 const port = 3000;
 const jsonMiddleware = express.json();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://sea-lights-xv8y.vercel.app/'
+}));
 swaggerInit(app);
 
 app.get('/', (req, res) => {
